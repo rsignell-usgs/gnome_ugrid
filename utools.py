@@ -48,12 +48,25 @@ class ugrid:
         
         u = self.Dataset.variables[var_map['u_velocity']]
         self.atts['u'] = u.__dict__
-        self.data['u'] = u[tindex[0]:tindex[1]:tindex[2],0,:]
-        
+
+        if len(shape(u))==3:
+            self.data['u'] = u[tindex[0]:tindex[1]:tindex[2],0,:]
+        elif len(shape(u))==2:
+            self.data['u'] = u[tindex[0]:tindex[1]:tindex[2],:]
+        else
+            print "Error:velocity is not 2 or 3 dimensional"
+            raise
+ 
         v = self.Dataset.variables[var_map['v_velocity']]
         self.atts['v'] = v.__dict__
-        self.data['v'] = v[tindex[0]:tindex[1]:tindex[2],0,:]
-        
+        if len(shape(v))==3:
+            self.data['v'] = v[tindex[0]:tindex[1]:tindex[2],0,:]
+        elif len(shape(v))==2:
+            self.data['v'] = v[tindex[0]:tindex[1]:tindex[2],:]
+        else
+            print "Error:velocity is not 2 or 3 dimensional"
+            raise       
+
         nbe = self.Dataset.variables[var_map['eles_surrounding_ele']]
         self.atts['nbe'] = nbe.__dict__
         self.data['nbe'] = nbe[:]
